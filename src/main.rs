@@ -7,13 +7,13 @@ async fn main() -> Result<()> {
     let dom = tl::parse(&body, Default::default())?;
     let parser = dom.parser();
 
-    csv.write_record(&["Title", "Mirror 1", "Mirror 2", "Mirror 3", "Mirror 4"])?;
+    csv.write_record(["Title", "Mirror 1", "Mirror 2", "Mirror 3", "Mirror 4"])?;
 
     if let Some(last) = dom
         .query_selector("a.page-numbers")
         .context(line!())?
         .filter_map(|handle| handle.get(parser))
-        .filter_map(|node| node.inner_text(parser).parse::<usize>().ok())
+        .filter_map(|node| node.inner_text(parser).parse().ok())
         .last()
     {
         let mut posts = Vec::with_capacity(last);
@@ -55,7 +55,7 @@ async fn main() -> Result<()> {
     Ok(csv.flush()?)
 }
 
-fn find_posts<'a>(body: &str) -> Result<Vec<(String, String)>> {
+fn find_posts(body: &str) -> Result<Vec<(String, String)>> {
     let dom = tl::parse(body, Default::default())?;
     let parser = dom.parser();
 
