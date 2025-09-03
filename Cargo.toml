@@ -1,0 +1,11 @@
+[package]
+name = "qingju"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = "*"
+csv = "*"
+reqwest = "*"
+tl = { version = "*", features = ["simd"] }
+tokio = { version = "*", features = ["full"] }
