@@ -110,6 +110,7 @@ fn find_posts(body: &str) -> Result<Vec<(String, String)>> {
             attributes
                 .get("title")
                 .flatten()
+                .filter(|title| !title.as_bytes().ends_with(b"</span>"))
                 .zip(attributes.get("href").flatten())
                 .into_iter()
                 .map(|(title, url)| {
