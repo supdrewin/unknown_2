@@ -73,6 +73,7 @@ async fn main() -> Result<()> {
             .map(|data| data.split_at(data.len() - 3).0)
             .filter_map(|input| BASE64_STANDARD.decode(input).ok())
             .filter_map(|vec| String::from_utf8(vec).ok())
+            .filter(|url| url.starts_with("https://"))
             .next()
         {
             println!("Processing: {url}");
