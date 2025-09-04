@@ -71,7 +71,7 @@ async fn main() -> Result<()> {
             .filter_map(|vec| String::from_utf8(vec).ok())
             .next()
         {
-            let body = reqwest::get(url).await?.text().await?;
+            let body = client.get(url).send().await?.text().await?;
             let dom = tl::parse(&body, Default::default())?;
             let parser = dom.parser();
 
