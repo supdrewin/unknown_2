@@ -1,11 +1,12 @@
 [package]
-name = "qingju"
-version = "0.1.1"
+name = "acgs"
+version = "0.1.0"
 edition = "2024"
 
 [dependencies]
 anyhow = "*"
+base64 = "*"
 csv = "*"
-reqwest = "*"
+reqwest = { version = "*", features = ["cookies", "multipart"] }
 tl = { version = "*", features = ["simd"] }
 tokio = { version = "*", features = ["full"] }
