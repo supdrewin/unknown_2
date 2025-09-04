@@ -3,9 +3,13 @@ use base64::prelude::*;
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    let client = reqwest::Client::builder()
+        .cookie_store(true)
+        .user_agent("Safari/537.36")
+        .build()?;
+
     let mut csv = csv::Writer::from_path("baidu_pan_records.csv")?;
     let mut posts = Vec::with_capacity(92);
-    let client = reqwest::Client::builder().cookie_store(true).build()?;
 
     csv.write_record(["Title", "URL"])?;
 
@@ -37,7 +41,7 @@ async fn main() -> Result<()> {
                     .post(format!("{url}?themeAction=comment"))
                     .multipart(
                         reqwest::multipart::Form::new()
-                            .text("text", "Thanks!")
+                            .text("text", "谢谢")
                             .text("author", "guest")
                             .text("mail", "guest@gmail.com")
                             .text("sum", "43")
